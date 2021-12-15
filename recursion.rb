@@ -63,32 +63,30 @@ end
 # p fibs_iter(8)  #1 1 2 3 5 
 
 def bsearch(array, target)
-    debugger
+    #debugger
     return nil if array.empty?
 
-    middle_index = array.length.even? ? array.length/2 - 1 : array.length / 2
+    middle_index = array.length / 2 
     middle_value = array[middle_index]
-    index = 0
+
 
     case target <=> middle_value 
     when 1 # target > middle  = to the right = add onto index
-        bsearch(array[middle_index + 1..-1], target) #2 + 1 
-        index += middle_index # = 2
+        middle_index + bsearch(array[middle_index..-1], target)
+        # middle_index + bsearch(array[middle_index+1..-1], target) + 1
     when 0 # target = middle    
-        index += middle_index
+        middle_index 
     when -1 #target < middle  = to the left = minus  index  
-        bsearch(array[0...middle_index], target) #2 + 1 
-        index += (middle_index - array[0...middle_index].length) # = 2
+        bsearch(array[0...middle_index], target) #2 + 1 [1,2,3] 0([3]) + 1([1,2,3])+ ([1,2,3,4,5,6,7]
     end
-    index
 end
+p bsearch([1, 2, 3, 4, 5, 6, 7], 3) # => 2
+p bsearch([1, 2, 3], 1) # => 0
+p bsearch([2, 3, 4, 5], 3) # => 1
+p bsearch([2, 4, 6, 8, 10], 6) # => 2
+p bsearch([1, 3, 4, 5, 9], 5) # => 3
 
-# p bsearch([1, 2, 3], 1) # => 0
-# p bsearch([2, 3, 4, 5], 3) # => 1
-# p bsearch([2, 4, 6, 8, 10], 6) # => 2
-# p bsearch([1, 3, 4, 5, 9], 5) # => 3
 
-p bsearch([1, 2, 3, 4, 5, 6], 6) # => 5 
 # 1st  index = 0, middle index = 2, set index = 2
 # 2nd  [4,5,6] index = 0(),  middle =1 , set index = 1(3?)
 # 3rd [6]   index = 0
