@@ -83,16 +83,31 @@ def bsearch(array, target)
     index
 end
 
-# p bsearch([1, 2, 3], 1) # => 0
-# p bsearch([2, 3, 4, 5], 3) # => 1
-# p bsearch([2, 4, 6, 8, 10], 6) # => 2
-# p bsearch([1, 3, 4, 5, 9], 5) # => 3
+def merge_sort(arr)
+    #debugger
+    if arr.length <= 1
+        return arr
+    else   #[2,3,1]
+        middle_index = arr.length / 2
+        left_half = merge_sort(arr[0...middle_index])
+        right_half = merge_sort(arr[middle_index..-1])
+        merge(left_half,right_half)
+    end
+end
 
-p bsearch([1, 2, 3, 4, 5, 6], 6) # => 5 
-# 1st  index = 0, middle index = 2, set index = 2
-# 2nd  [4,5,6] index = 0(),  middle =1 , set index = 1(3?)
-# 3rd [6]   index = 0
-# p bsearch([1, 2, 3, 4, 5, 6], 1) # => 0  2 => 0
+def merge(left_array,right_array)
+    #debugger
+    sorted = []
+    while !left_array.empty? && !right_array.empty?
+        if left_array[0] < right_array[0]
+            sorted << left_array.shift
+        else
+            sorted << right_array.shift
+        end
+    end
+    sorted += left_array
+    sorted += right_array
+    sorted
+end
 
-# p bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
-# p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil 
+p merge_sort([2,3,1,0,6,3])
